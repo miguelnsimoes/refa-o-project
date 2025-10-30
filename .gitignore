@@ -14,3 +14,6 @@ __pycache__/
 # Logs e cache
 *.log
 .cache/
+
+#Secrets
+.streamlit/secrets.toml
