@@ -1,35 +1,15 @@
 import streamlit as st
+import pandas as pd
 from supabase import create_client, Client
-import os
 from dotenv import load_dotenv
+import os
 
-# --- LÓGICA DE CARREGAMENTO DE SEGREDOS CORRIGIDA (FINAL) ---
+load_dotenv()
 
-# 1. Carrega o .env (sempre)
-load_dotenv() 
+url: str = os.getenv("SUPABASE_URL")
+key: str = os.getenv("SUPABASE_KEY")
 
-# Tenta ler do .env (SUPABASE_URL terá um valor ou será None)
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-
-if SUPABASE_URL:
-    # Caso 1: Rodando localmente, chaves encontradas no .env.
-    # st.info("MODO LOCAL: Carregando chaves do arquivo .env")
-    pass 
-
-elif not SUPABASE_URL and "supabase" in st.secrets:
-    # Caso 2: Rodando no Streamlit Cloud (chaves do .env estão vazias, mas st.secrets está preenchido)
-    SUPABASE_URL = st.secrets["supabase"]["url"]
-    SUPABASE_KEY = st.secrets["supabase"]["key"]
-    # st.info("MODO DEPLOY: Carregando chaves do st.secrets")
-
-else:
-    # Caso 3: Falha total (não achou em lugar nenhum)
-    st.error("ERRO CRÍTICO: Chaves do Supabase não encontradas. Verifique o arquivo .env (local) ou a configuração de segredos do Streamlit Cloud.")
-    st.stop() 
-
-# Cria o cliente Supabase
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase = create_client(url, key)
 
 
 try:
@@ -267,7 +247,7 @@ def main():
                             index=idx_motivo
                         )
                        
-
+                       
                     with col3:
                         time_solicitou_refacao = None
                         cliente_solicitou_refacao = None
@@ -382,9 +362,12 @@ def main():
                         st.rerun()
                     else:
                         st.error(f"Ocorreu um erro na operação com o banco: {e}")
+        else:
+            st.info("Adicione ao menos uma refação para salvar.")
 
 
 
+   
             
 if __name__ == "__main__":
     main()  
