@@ -25,8 +25,8 @@ if not check_password():
 
 
 load_dotenv()
-url: str = os.getenv("SUPABASE_URL") or st.secrets["SUPABASE_URL"]
-key: str = os.getenv("SUPABASE_KEY") or st.secrets["SUPABASE_KEY"]
+url: str = os.getenv("SUPABASE_URL") or st.secrets["supabase"]["url"]
+key: str = os.getenv("SUPABASE_KEY") or st.secrets["supabase"]["key"]
 
 supabase = create_client(url, key)
 
