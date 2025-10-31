@@ -280,7 +280,7 @@ def main():
                         valor_real_da_col1 = st.session_state.get(key_da_col1, ' ') 
                     
                         if valor_real_da_col1 == 'Interna': 
-                            time_opcoes = [' ', 'Refação', 'Criação', 'Automação', 'Tech', 'Performance', 'Comunicação']
+                            time_opcoes = [' ', 'Redação', 'Criação', 'Automação', 'Tech', 'Performance', 'Comunicação', 'Produção', 'Organização']
                             key_time = f'time-{id_card}-{conteudo_selecionado}-{ref_num}'
                             valor_time = st.session_state.get(key_time, None)
 
@@ -297,7 +297,56 @@ def main():
                                 index=idx_time
                             )
                         elif valor_real_da_col1 == 'Externa':
-                            cliente_opcoes = [' ', 'Hospitalar', 'BR Consórcios', 'SnowDog', 'Arnaldos']
+                            cliente_opcoes = [
+                                ' ',
+                                'Hospitalar',
+                                'BR Consórcios',
+                                'SnowDog',
+                                'Arnaldos',
+                                'Acomac',
+                                'Alternativa RH',
+                                'Bayer WiSE',
+                                'BitFix',
+                                'Dale Carnegie',
+                                'EletroFM',
+                                'Gustavo Campassi',
+                                'Hospital Evangélico',
+                                'Marly Fagundes',
+                                'Massi Marketing',
+                                'Massi Auto',
+                                'Parque das Oliveiras',
+                                'Abralimp',
+                                'Amiste Café',
+                                'Amiste Franquia',
+                                'Amiste Unidades',
+                                'Ambiente Home',
+                                'Claven',
+                                'CondoBem',
+                                'Dr. Mitsuo',
+                                'Fancar Fiat',
+                                'Fancar Renault',
+                                'Fancar Ford',
+                                'Fancar Volkswagen',
+                                'Fancar Honda',
+                                'Fancar Seminovos',
+                                'Fancor',
+                                'Manda Bem',
+                                'Norpave e Cipasa Seminovos',
+                                'Rocha Supermercado',
+                                'Só Películas',
+                                'SolvePlan',
+                                'Santarém',
+                                'Fancar Consórcios',
+                                'Norpave e Cipasa Novos',
+                                'Unidos',
+                                'Metanet',
+                                'State Offices',
+                                'Clavem',
+                                'Paella Solidaria',
+                                'Garcia Piscinas',
+                                'Temperbras'
+                            ]
+
                             key_cliente = f'cliente-{id_card}-{conteudo_selecionado}-{ref_num}'
                             valor_cliente = st.session_state.get(key_cliente, None)
 
