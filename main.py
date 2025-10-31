@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from supabase import create_client, Client
 import pandas as pd
 
+
 def check_password():
     if "password_correct" not in st.session_state:
         st.session_state.password_correct = False
@@ -11,17 +12,21 @@ def check_password():
     if not st.session_state.password_correct:
         st.markdown("### 🔒")
         password = st.text_input("Digite a senha:", type="password")
+
         if password == st.secrets["general"]["password"]:
             st.session_state.password_correct = True
+            st.rerun()
         elif password:
-            st.error("Senha incorreta ")
-            st.stop()  
+            st.error("Senha incorreta")
+            st.stop()
         else:
-            st.stop()  
-    return st.session_state.password_correct
+            st.stop()
 
-if not check_password():
-    st.stop()
+    return True
+
+
+if check_password():
+    st.title("")   
 
 
 load_dotenv()
