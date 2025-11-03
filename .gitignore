@@ -1,19 +1,18 @@
-# Ambiente virtual
+
 venv/
 .env
 
-# Arquivos temporários
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Configs do VS Code
+
 .vscode/
 
-# Logs e cache
+
 *.log
 .cache/
 
-#Secrets
+
 .streamlit/secrets.toml
