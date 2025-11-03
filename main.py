@@ -243,34 +243,59 @@ def main():
                             key=key_tipo, 
                             index=idx_tipo
                         )
-                    
-                  
+            
+
                     with col2:
-                        opcoes_motivo = [
-                            " ", "Briefing incompleto", "Execução fora do direcionamento", 
-                            "Erro técnico (para alterações de erro interno, ex: logo errada, cor errada)", 
-                            "Alteração estética (solicitada pelo cliente)", 
-                            "Alteração estética (solicitada pelo time)", 
-                            "Ajuste por atualização de informações"
-                        ]
                         
+
+                        if time_responsavel_sessao == "Redação":
+                            texto_bruto = texto_de_ajuda()
+                            linhas = texto_bruto.strip().split('\n')
+                            opcoes_redacao = [l.strip().lstrip('- **').split('**:')[0].strip() for l in linhas if l.strip()]
+                            opcoes_motivo = [" "] + opcoes_redacao
+                        
+                        else: 
+                            opcoes_motivo = [
+                                " ", "Briefing incompleto", "Execução fora do direcionamento", 
+                                "Erro técnico (para alterações de erro interno, ex: logo errada, cor errada)", 
+                                "Alteração estética (solicitada pelo cliente)", 
+                                "Alteração estética (solicitada pelo time)", 
+                                "Ajuste por atualização de informações"
+                            ]
+                        
+
                         key_motivo = f'motivo-{id_card}-{conteudo_selecionado}-{ref_num}'
-                        valor_motivo_atual = st.session_state.get(key_motivo, None)
-                        
                         idx_motivo = 0
-                        if valor_motivo_atual:
-                            try: idx_motivo = opcoes_motivo.index(valor_motivo_atual.strip())
-                            except ValueError: idx_motivo = 0
-                        elif dados_existentes and dados_existentes.get("motivo_refacao"):
-                            try: idx_motivo = opcoes_motivo.index(dados_existentes["motivo_refacao"].strip())
-                            except ValueError: idx_motivo = 0
+                        
+                        
+                        valor_a_exibir = None
+                        
+                        
+                        if dados_existentes and dados_existentes.get("motivo_refacao"):
+                            valor_a_exibir = dados_existentes["motivo_refacao"].strip()
+                       
+                        else:
+                            valor_sessao = st.session_state.get(key_motivo, None)
+                            if valor_sessao:
+                                valor_a_exibir = valor_sessao.strip()
+
+                        if valor_a_exibir and (valor_a_exibir not in opcoes_motivo):
+                            opcoes_motivo.append(valor_a_exibir)
+
+                        if valor_a_exibir:
+                            try:
+                                idx_motivo = opcoes_motivo.index(valor_a_exibir)
+                            except ValueError:
+                                idx_motivo = 0 
                         
                         motivo_refacao = st.selectbox(
-                            'Motivo Refação', opcoes_motivo, 
+                            'Motivo Refação', 
+                            opcoes_motivo,
                             key=key_motivo,
                             index=idx_motivo
                         )
-                       
+
+                        
                        
                     with col3:
                         time_solicitou_refacao = None
